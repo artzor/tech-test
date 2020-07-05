@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  # client-api service runs file import on service start if env. variable is set
+  client-api:
+    build: ./client-api
+    restart: always
+    volumes:
+      - "./_data:/data"
+    environment:
+      - PORT_DOMAIN=port-domain:9090
+      - IMPORT_FILE=/data/file.json
+
+    ports:
+      - "8080:8080"
+    depends_on:
+      - port-domain
+
+  # port domain service provides API to store and retrieve data
+  port-domain:
+    build: ./port-domain
+    restart: always
+    depends_on:
+      - mongo
+    environment:
+      - SERVICE_DB_URI=mongodb://mongo:27017
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    command: mongod --port 27017
+    volumes:
+      - "./_data/db:/data/db"
