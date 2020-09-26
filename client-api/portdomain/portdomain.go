@@ -4,7 +4,7 @@ package portdomain
 import (
 	"context"
 
-	portDomainApi "github.com/artzor/tech-test/client-api/portdomain/api"
+	portDomainApi "github.com/artzor/tech-test/port-domain/api"
 
 	"github.com/artzor/tech-test/client-api/entity"
 
