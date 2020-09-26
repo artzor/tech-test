@@ -11,7 +11,6 @@ import (
 	"github.com/artzor/tech-test/port-domain/api"
 	"github.com/artzor/tech-test/port-domain/entity"
 
-	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -32,7 +31,7 @@ type store interface {
 }
 
 // Save stores PortDetails
-func (s Service) Save(ctx context.Context, details *api.PortDetails) (*empty.Empty, error) {
+func (s Service) Save(ctx context.Context, details *api.PortDetails) (*api.Empty, error) {
 	if details.Id == "" {
 		return nil, status.Errorf(codes.InvalidArgument, ErrMissingID.Error())
 	}
@@ -42,7 +41,7 @@ func (s Service) Save(ctx context.Context, details *api.PortDetails) (*empty.Emp
 		return nil, err
 	}
 
-	return &empty.Empty{}, nil
+	return &api.Empty{}, nil
 }
 
 // Get retrieves PortDetail by port ID
