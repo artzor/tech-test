@@ -4,10 +4,11 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"portdomain/config"
-	"portdomain/service"
-	"portdomain/store"
 	"syscall"
+
+	"github.com/artzor/tech-test/port-domain/config"
+	"github.com/artzor/tech-test/port-domain/service"
+	"github.com/artzor/tech-test/port-domain/store"
 )
 
 func startServer() {

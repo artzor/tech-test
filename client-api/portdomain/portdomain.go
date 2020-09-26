@@ -2,16 +2,18 @@
 package portdomain
 
 import (
-	"clientapi/entity"
-	"clientapi/portdomain/service"
 	"context"
+
+	portDomainApi "github.com/artzor/tech-test/client-api/portdomain/api"
+
+	"github.com/artzor/tech-test/client-api/entity"
 
 	"google.golang.org/grpc"
 )
 
 // Client exposes external service APIs
 type Client struct {
-	client     service.PortDomainClient
+	client     portDomainApi.PortDomainClient
 	connection *grpc.ClientConn
 	serviceURL string
 }
@@ -28,7 +30,7 @@ func (c *Client) Connect() error {
 		return err
 	}
 
-	c.client = service.NewPortDomainClient(conn)
+	c.client = portDomainApi.NewPortDomainClient(conn)
 	c.connection = conn
 	return nil
 }
@@ -46,15 +48,15 @@ func (c *Client) Save(ctx context.Context, portDetails entity.PortDetails) error
 
 // Get calls service's Get method
 func (c *Client) Get(ctx context.Context, portID string) (entity.PortDetails, error) {
-	servicePD, err := c.client.Get(ctx, &service.GetRequest{Id: portID})
+	servicePD, err := c.client.Get(ctx, &portDomainApi.GetRequest{Id: portID})
 	if err != nil {
 		return entity.PortDetails{}, err
 	}
 	return pdFromService(servicePD), nil
 }
 
-func pdToService(pd entity.PortDetails) *service.PortDetails {
-	return &service.PortDetails{
+func pdToService(pd entity.PortDetails) *portDomainApi.PortDetails {
+	return &portDomainApi.PortDetails{
 		Id:       pd.ID,
 		Name:     pd.Name,
 		City:     pd.City,
@@ -69,7 +71,7 @@ func pdToService(pd entity.PortDetails) *service.PortDetails {
 	}
 }
 
-func pdFromService(servicePD *service.PortDetails) entity.PortDetails {
+func pdFromService(servicePD *portDomainApi.PortDetails) entity.PortDetails {
 	return entity.PortDetails{
 		ID:       servicePD.Id,
 		Name:     servicePD.Name,

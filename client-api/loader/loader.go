@@ -2,11 +2,12 @@
 package loader
 
 import (
-	"clientapi/entity"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
+
+	"github.com/artzor/tech-test/client-api/entity"
 )
 
 // Loader provides an API to read and parse file

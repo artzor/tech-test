@@ -4,7 +4,8 @@ package store
 import (
 	"context"
 	"log"
-	"portdomain/entity"
+
+	"github.com/artzor/tech-test/port-domain/entity"
 
 	"time"
 

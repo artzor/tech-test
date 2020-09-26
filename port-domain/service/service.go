@@ -7,7 +7,9 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"portdomain/entity"
+
+	"github.com/artzor/tech-test/port-domain/api"
+	"github.com/artzor/tech-test/port-domain/entity"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
@@ -30,7 +32,7 @@ type store interface {
 }
 
 // Save stores PortDetails
-func (s Service) Save(ctx context.Context, details *PortDetails) (*empty.Empty, error) {
+func (s Service) Save(ctx context.Context, details *api.PortDetails) (*empty.Empty, error) {
 	if details.Id == "" {
 		return nil, status.Errorf(codes.InvalidArgument, ErrMissingID.Error())
 	}
@@ -44,7 +46,7 @@ func (s Service) Save(ctx context.Context, details *PortDetails) (*empty.Empty, 
 }
 
 // Get retrieves PortDetail by port ID
-func (s Service) Get(ctx context.Context, request *GetRequest) (*PortDetails, error) {
+func (s Service) Get(ctx context.Context, request *api.GetRequest) (*api.PortDetails, error) {
 	if request.Id == "" {
 		return nil, ErrMissingID
 	}
@@ -69,7 +71,7 @@ func (s *Service) Start() error {
 		return fmt.Errorf("net listen: %v", err)
 	}
 
-	RegisterPortDomainServer(server, s)
+	api.RegisterPortDomainServer(server, s)
 	log.Printf("[info] starting grpc server on port %s", s.port)
 	s.server = server
 	if err = server.Serve(listener); err != nil {
@@ -83,8 +85,8 @@ func (s *Service) Stop() {
 	s.server.Stop()
 }
 
-func pdToService(pd entity.PortDetails) *PortDetails {
-	return &PortDetails{
+func pdToService(pd entity.PortDetails) *api.PortDetails {
+	return &api.PortDetails{
 		Id:       pd.ID,
 		Name:     pd.Name,
 		City:     pd.City,
@@ -99,7 +101,7 @@ func pdToService(pd entity.PortDetails) *PortDetails {
 	}
 }
 
-func pdFromService(servicePD *PortDetails) entity.PortDetails {
+func pdFromService(servicePD *api.PortDetails) entity.PortDetails {
 	return entity.PortDetails{
 		ID:       servicePD.Id,
 		Name:     servicePD.Name,

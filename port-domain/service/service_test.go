@@ -4,9 +4,11 @@ import (
 	"context"
 	"log"
 	"net"
-	"portdomain/entity"
 	"testing"
 	"time"
+
+	"github.com/artzor/tech-test/port-domain/api"
+	"github.com/artzor/tech-test/port-domain/entity"
 
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
@@ -47,7 +49,7 @@ func TestService_Save(t *testing.T) {
 
 	defer conn.Close()
 
-	client := NewPortDomainClient(conn)
+	client := api.NewPortDomainClient(conn)
 	tt := []struct {
 		pd      entity.PortDetails
 		wantErr string
@@ -86,7 +88,7 @@ func start(store store) (ctxFunc, *grpc.Server) {
 	svc := &Service{
 		store: store,
 	}
-	RegisterPortDomainServer(s, svc)
+	api.RegisterPortDomainServer(s, svc)
 	go func() {
 		if err := s.Serve(lis); err != nil {
 			log.Fatalf("Server exited with error: %v", err)

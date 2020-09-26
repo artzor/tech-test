@@ -1,11 +1,6 @@
 package main
 
 import (
-	"clientapi/config"
-	"clientapi/entity"
-	"clientapi/loader"
-	"clientapi/portdomain"
-	"clientapi/web"
 	"context"
 	"log"
 	"net/http"
@@ -13,6 +8,12 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/artzor/tech-test/client-api/config"
+	"github.com/artzor/tech-test/client-api/entity"
+	"github.com/artzor/tech-test/client-api/loader"
+	"github.com/artzor/tech-test/client-api/portdomain"
+	"github.com/artzor/tech-test/client-api/web"
 )
 
 type store interface {

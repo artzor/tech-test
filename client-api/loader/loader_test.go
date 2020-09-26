@@ -1,10 +1,11 @@
 package loader
 
 import (
-	"clientapi/entity"
 	"errors"
 	"strings"
 	"testing"
+
+	"github.com/artzor/tech-test/client-api/entity"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

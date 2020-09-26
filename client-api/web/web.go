@@ -2,13 +2,13 @@
 package web
 
 import (
-	"clientapi/entity"
 	"context"
 	"encoding/json"
 	"log"
 	"net/http"
 	"time"
 
+	"github.com/artzor/tech-test/client-api/entity"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )

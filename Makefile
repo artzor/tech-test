@@ -8,5 +8,4 @@ test:
 	cd client-api && go test ./... -v
 
 gen-proto:
-	protoc -I port-domain/service port-domain/service/service.proto --go_out=plugins=grpc:port-domain/service
-	protoc -I port-domain/service port-domain/service/service.proto --go_out=plugins=grpc:client-api/portdomain/service
+	protoc -I port-domain/api port-domain/api/api.proto --go_out=plugins=grpc:port-domain/api

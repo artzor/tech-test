@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  # client-api service runs file import on service start if env. variable is set
+  # client-api api runs file import on api start if env. variable is set
   client-api:
     build: ./client-api
     restart: always
@@ -16,7 +16,7 @@ services:
     depends_on:
       - port-domain
 
-  # port domain service provides API to store and retrieve data
+  # port domain api provides API to store and retrieve data
   port-domain:
     build: ./port-domain
     restart: always
